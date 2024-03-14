@@ -1,25 +1,29 @@
 import logo from './logo.svg';
 import './App.css';
+import Stopwatch from './components/stopwatch';
+import { useState } from 'react';
+// import Counter from './components/Counter';
 
 function App() {
+  const [visible, changevisible ] = useState(true);
+
+  const toggleVisibility = () =>{
+    changevisible((currVisible)=>{
+      return !currVisible;
+    })
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <input type='checkbox' onChange={toggleVisibility} />Toggle visible
+
+    <div style={{
+      display: visible ? 'block' : 'none',
+    }}>
+      <Stopwatch /> 
+    </div>  
     </div>
   );
 }
-
+{/* <Counter/> */}
 export default App;
