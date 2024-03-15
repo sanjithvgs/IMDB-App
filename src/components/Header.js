@@ -1,9 +1,11 @@
+import { Link } from "react-router-dom";
+
 const Header = () =>{
     return(
         <div className="header">
-            <span>Movie List</span>
-            <span>Movie Detail</span>
-            <span>Add Movie</span>     
+            <Link to="/"><span>Movie List</span></Link>
+            <Link to="/add-movie"><span>Add Movie</span></Link>
+                   
         </div>
     )
 }

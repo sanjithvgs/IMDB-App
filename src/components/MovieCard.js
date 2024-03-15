@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 
 
 const MovieCard = ({movie}) =>{
@@ -6,7 +7,7 @@ const MovieCard = ({movie}) =>{
             <div>
                 
                 <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}/>
-                <h4>{movie.title}</h4>
+                <Link to={`/movie-detail/${movie.id}`}><h4>{movie.title}</h4></Link>               
             </div>
         </div>
     );
