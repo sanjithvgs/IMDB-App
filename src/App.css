@@ -82,3 +82,26 @@ body{
   gap: 15px;
   background-color: #ccc;
 }
+
+.pagination{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 25px 25px 40px 25px;
+  gap: 30px;
+}
+
+.page-button{
+   width: 20px;
+   height: 20px;
+   cursor: pointer;
+}
+
+.page-button.active{
+    color: blue;
+}
+
+a:link { 
+  text-decoration: none;
+  color: black;
+}
