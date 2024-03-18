@@ -62,7 +62,7 @@ body{
 
 .movie-card{
   width: 210px;
-  /* height: 370px; */
+  /* height: 100%; */
   border: 1px solid black;
   padding: 5px;
   border-radius: 5px;
@@ -100,10 +100,37 @@ body{
 }
 
 .page-button.active{
-    color: blue;
+    color: white;
+    background-color: black;
+    border: solid black;
+    border-radius: 10px;
 }
 
 a:link { 
   text-decoration: none;
   color: black;
+}
+
+.Watchlist.add{
+  background-color: yellow;
+  margin: 10px;
+  border-radius: 5px;
+}
+
+.Watchlist.remove{
+  background-color: darkorange;
+  margin: 10px;
+  border-radius: 5px;
+}
+
+.add-movie-form{
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* justify-content: center; */
+}
+
+.add-movie-form div{
+  margin-bottom: 10px;
 }
