@@ -1,12 +1,5 @@
 import { useEffect, useState } from 'react';
 
-const getPages = (totalPage, maxVisiblePageCount, activePage) => {
-    const maxResultSize = totalPage > maxVisiblePageCount ? maxVisiblePageCount:totalPage;
-    const startingPage = activePage + maxResultSize > totalPage ? totalPage - maxResultSize +1 : activePage;
-    return [...Array(maxResultSize)].map((_,idx)=>{
-        return startingPage + idx;
-    });
-}
 
 const Pagination = ({onPageChange}) => {
 
@@ -16,9 +9,24 @@ const Pagination = ({onPageChange}) => {
     const [pages, setPage] = useState([]);
     const [activePage, setActivePage] = useState(1);
 
+    const getPages = (totalPage, maxVisiblePageCount, activePage) => {
+        const maxResultSize = totalPage > maxVisiblePageCount ? maxVisiblePageCount:totalPage;
+        const startingPage = activePage + maxResultSize > totalPage ? totalPage - maxResultSize +1 : activePage;
+        return [...Array(maxResultSize)].map((_,idx)=>{
+            return startingPage + idx;
+        });
+    }
   
     const changePage= function(e){
-        const selectedPage = Number(e.target.dataset.id);
+        let selectedPage = 0;
+        if(e.target.dataset.id === "PREV"){
+            selectedPage = activePage-1
+        }else if(e.target.dataset.id === "NEXT"){
+            selectedPage = activePage+1
+        }else{
+            selectedPage = Number(e.target.dataset.id);
+        }
+        // const selectedPage = Number(e.target.dataset.id);
         setActivePage(selectedPage);
         onPageChange(selectedPage);
     }
@@ -30,13 +38,13 @@ const Pagination = ({onPageChange}) => {
 
     return (
          <div className="pagination">
-         <div className="page-button" data-id={"PREV"} onClick={changePage}>Prev</div>
+         <button className="page-button" data-id={"PREV"} onClick={changePage} disabled={activePage === 1}>Prev</button>
          {
                 pages.map((page)=>(
-                    <div className={`page-button ${activePage == page ? 'active' : ''}`} data-id={page} onClick={changePage}>{page}</div>
+                    <button className={`page-button ${activePage == page ? 'active' : ''}`} data-id={page} onClick={changePage}>{page}</button>
                 ))
          }
-         <div className="page-button" data-id={"NEXT"} onClick={changePage}>Next</div>
+         <button className="page-button" data-id={"NEXT"} onClick={changePage} disabled={activePage === totalPage}>Next</button>
          </div>
     )
 }
