@@ -1,6 +1,7 @@
 import AddMovie from "./AddMovie";
 import Header from "./Header";
 import MovieDetail from "./MovieDetail";
+import MovieFavourites from "./MovieFavourites";
 import MovieList from "./MovieList";
 import {
     BrowserRouter,
@@ -58,6 +59,7 @@ const MovieApp = () => {
             <Routes>
                 <Route path="/" element={<MovieList />}></Route>
                 <Route path="/movie-detail/:movieID" element={<MovieDetail />}></Route>
+                <Route path="/favourites" element={<MovieFavourites />}> </Route>
                 <Route path="/add-movie" element={<AddMovie />}></Route>
             </Routes>
         
