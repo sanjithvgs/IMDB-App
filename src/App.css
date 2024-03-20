@@ -134,3 +134,27 @@ a:link {
 .add-movie-form div{
   margin-bottom: 10px;
 }
+
+.favourite-wrapper{
+  display: flex;
+}
+
+.favourite-wrapper .left-section{
+  flex-basis: 30%;
+  /* background-color: #ccc; */
+}
+
+.favourite-wrapper .right-section{
+  flex-grow: 1;
+  /* background-color: pink; */
+}
+
+.favourite-wrapper .right-section table{
+  border-collapse: collapse;
+}
+
+
+.favourite-wrapper .right-section table th, .favourite-wrapper .right-section table td{
+  border: 1px dotted black;
+  padding: 20px;
+}

@@ -3,16 +3,19 @@ import { Link } from "react-router-dom";
 
 const MovieCard = ({movie, onWatchListUpdate, watchList}) =>{
 
-    const isMovieAdded = watchList.find(list=> list==movie.id);
+    const isMovieAdded = watchList.find(list=> list.id==movie.id);
 
     const  addToWatchList = function(e){
-        const movieID = e.target.dataset.id;
+        // const movieID = e.target.dataset.id;
+        let favourite = [];
         onWatchListUpdate((prevWatchlist)=>{
-            if (prevWatchlist.find(list => list == movieID)){
-                return prevWatchlist.filter(item => item !== movieID);
+            if (prevWatchlist.find(list => list.id == movie.id)){
+                favourite = prevWatchlist.filter(item => item.id !== movie.id);
             }else{
-                return [...prevWatchlist, movieID];
+                favourite = [...prevWatchlist, movie];
             }
+            localStorage.setItem("favourite",JSON.stringify(favourite));
+            return favourite;
         });
     }
 
