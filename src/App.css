@@ -146,15 +146,44 @@ a:link {
 
 .favourite-wrapper .right-section{
   flex-grow: 1;
-  /* background-color: pink; */
 }
 
 .favourite-wrapper .right-section table{
   border-collapse: collapse;
+  background-color: pink;
+  border-radius: 15px;
 }
 
 
 .favourite-wrapper .right-section table th, .favourite-wrapper .right-section table td{
-  border: 1px dotted black;
+  border: 1px solid black;
   padding: 20px;
+}
+
+.genre-wrapper{
+  display: flex;
+  width:200px;
+  flex-direction: column;
+  border: 2px solid black;
+  padding: 15px;
+  border-radius: 15px;
+  
+}
+
+.genre-wrapper .genre{
+  height: 30px;
+  display: flex;
+  align-items: center;
+  background-color: pink;
+  border-radius: 5px;
+  padding: 5px 15px;
+  margin: 1px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.genre-wrapper .genre.selected{
+  background-color: black;
+  color: white;
+  border-radius: 10px;
 }

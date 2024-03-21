@@ -5,7 +5,10 @@ import Pagination from "./Pagination";
 
 const MovieList = () => {
     const [movies, setMovies] = useState([]);
-    const [WatchList, setWatchList] = useState([]);
+    const [WatchList, setWatchList] = useState(()=>{
+        const favouriteData = localStorage.getItem("favourite" || "[]");
+        return (JSON.parse(favouriteData));
+    });
 
     const fetchMovie = (pageNo) =>{
         fetch(`https://api.themoviedb.org/3/movie/now_playing?api_key=9f48a5b363c49e0c31bf3d09bb319827&page=${pageNo}`)
@@ -24,7 +27,7 @@ const MovieList = () => {
         <>
             <Heading />
             Total Watchlist: {WatchList.length}
-            <p>High Popularity Movie count: {popularMovieCount}</p>
+            {/* <p>High Popularity Movie count: {popularMovieCount}</p> */}
             <div className="movie-list">
             {!movies.length && <h1>Loading . . . . . . . . </h1>}
             {
