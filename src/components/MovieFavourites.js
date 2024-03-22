@@ -25,20 +25,63 @@ let genreids = {
 const MovieFavourites = () =>{
 
     const [favourite, setFavourite] = useState([]);
+    const [filterFavourite , setfilterFavourite] = useState([]); 
     const [genres, setGenre] = useState([]);
     const [SelectedGenreId, setSelectedGenreId] = useState("");
  
     useEffect(()=>{
         const favouriteData = JSON.parse(localStorage.getItem("favourite" || "[]"));
         const genresData = favouriteData.map(data => data.genre_ids[0]);
-        setGenre(genresData)
+        setGenre(Array.from(new Set(genresData)));
         setFavourite(favouriteData);
+        setfilterFavourite(favouriteData);
     },[]);
 
     const handleGenreSelected = (e)=>{
         const id= e.target.dataset.id;
         setSelectedGenreId(id);
     }
+
+    useEffect(()=>{
+        setfilterFavourite(()=>{
+            return favourite.filter(movie => !SelectedGenreId  || movie.genre_ids[0] == SelectedGenreId);
+        }) 
+    },[SelectedGenreId, favourite]);
+
+    const handleMovieSearch = (e) =>{
+        const text = e.target.value;
+        setfilterFavourite(()=>{
+            return favourite.filter(movie => movie.title.toLowerCase().includes(text));
+        }) 
+    }
+
+    const handlePopularitySortingAsc = ()=>{
+        setfilterFavourite(()=>{
+            return [...favourite].sort((a,b)=>{
+                return a.popularity - b.popularity;
+            });
+        }) 
+    }
+
+    const handlePopularitySortingDes = ()=>{
+        setfilterFavourite(()=>{
+            return [...favourite].sort((a,b)=>{
+                return b.popularity - a.popularity;
+            });
+        }); 
+    };
+
+    const handleMovieDelete = (movieID) =>(e) =>{
+        setFavourite((prevFavourites) =>{
+            const movieIdx = prevFavourites.findIndex(fav => fav.id == movieID);
+            const finalFav = [...prevFavourites];
+            finalFav.splice(movieIdx, 1);
+            localStorage.setItem("favourite",JSON.stringify(finalFav));
+            return finalFav;
+        })
+
+    }
+
 
     return(
         <div>
@@ -59,27 +102,31 @@ const MovieFavourites = () =>{
                 </div>
 
                 <div className="right-section">
+                    <input type="text" placeholder="Search Movie.." onChange={handleMovieSearch}/>
                     <table>
                         <thead>
                             <tr>
                                 <th>Image</th>
                                 <th>Title</th>
                                 <th>Genre</th>
-                                <th>Popularity</th>
+                                <th><span onClick={handlePopularitySortingDes}>D</span>
+                                    Popularity
+                                    <span onClick={handlePopularitySortingAsc}>A</span>
+                                    </th>
                                 <th>Rating</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                         {
-                            favourite.map((item)=>(
+                            filterFavourite.map((item)=>(
                                 <tr>
                                     <td><img src={`https://image.tmdb.org/t/p/w500${item.poster_path}`} style={{width: "100px"}}/></td>
                                     <td>{item.title}</td>
                                     <td>{genreids[item.genre_ids[0]]}</td>
                                     <td>{item.popularity}</td>
                                     <td>{item.vote_average}</td>
-                                    <td><button className="Watchlist remove">Remove from Watchlist</button></td>
+                                    <td><button className="Watchlist remove" onClick={handleMovieDelete(item.id)}>Remove from Watchlist</button></td>
                                 </tr>
                             ))
                         }
